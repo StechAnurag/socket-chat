@@ -11,20 +11,18 @@ app.use(expres.static(path.join(__dirname, '../public')));
 
 const port = process.env.PORT || 4500;
 
-let count = 0;
-// server (emit) -> client (recieve) - countUpdated event
-// client (emit) -> server (recieve) - increment event
-
 io.on('connection', socket => {
-  console.log('new websocket connection');
-  socket.emit('countUpdated', count);
+  console.log('new connection');
+  socket.emit('message', 'Welcome!');
 
-  socket.on('increment', () => {
-    count++;
-    // It only emits to the specific connection
-    // socket.emit('countUpdated', count);
-    // It emits to every single connection
-    io.emit('countUpdated', count);
+  socket.broadcast.emit('message', 'A new user joined.');
+
+  socket.on('sendMessage', message => {
+    io.emit('message', message);
+  });
+
+  socket.on('disconnect', () => {
+    io.emit('message', 'A user has left');
   });
 });
 
