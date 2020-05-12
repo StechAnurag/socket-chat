@@ -25,13 +25,11 @@ io.on('connection', socket => {
 
     io.emit('message', message);
     callback();
-    // callback('delivered');
   });
 
   socket.on('sendLocation', (data, cb) => {
-    // io.emit('message', `Location: ${data.location.lat}, ${data.location.long}`);
     io.emit('message', `https://google.com/maps?q=${data.location.lat},${data.location.long}`);
-    cb(); // acknowledgement
+    cb();
   });
 
   socket.on('disconnect', () => {
