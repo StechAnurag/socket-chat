@@ -9,10 +9,20 @@ const $messages = document.querySelector('#messages');
 
 // Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
+const locMsgTemplate = document.querySelector('#loc-msg-template').innerHTML;
 
 socket.on('message', message => {
   const html = Mustache.render(messageTemplate, {
-    message
+    message: message.text,
+    createdAt: moment(message.createdAt).format('h:mm a')
+  });
+  $messages.insertAdjacentHTML('beforeend', html);
+});
+
+socket.on('locationMessage', message => {
+  const html = Mustache.render(locMsgTemplate, {
+    url: message.url,
+    createdAt: moment(message.createdAt).format('h:mm a')
   });
   $messages.insertAdjacentHTML('beforeend', html);
 });

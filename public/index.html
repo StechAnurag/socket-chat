@@ -48,7 +48,22 @@
         // prettier-ignore
          -->
         <div>
-          <p>{{message}}</p>
+          <p>{{message}} <small>{{createdAt}}</small></p>
+        </div>
+      </script>
+      <script id="loc-msg-template" type="text/html">
+        <!--
+        // prettier-ignore
+         -->
+        <div>
+          <p>
+            <a href="{{url}}" target="_blank">
+              <figure>
+                <img src="map-marker.jpg" height="50", width="50" alt="location">
+                <figcaption>My location <small>{{createdAt}}</small></figcaption>
+              </figure>
+            </a>
+          </p>
         </div>
       </script>
     </div>
