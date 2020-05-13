@@ -15,16 +15,28 @@ const port = process.env.PORT || 4500;
 
 io.on('connection', socket => {
   console.log('new connection');
-  socket.emit('message', generateMsg('Welcome!'));
+  // socket.emit('message', generateMsg('Welcome!'));
+  // socket.broadcast.emit('message', generateMsg('A new user joined.'));
 
-  socket.broadcast.emit('message', generateMsg('A new user joined.'));
+  // JOIN EVENT
+  socket.on('join', ({ username, room }) => {
+    // allow user to join a room
+    socket.join(room);
+
+    socket.emit('message', generateMsg('Welcome!'));
+    socket.broadcast.to(room).emit('message', generateMsg(`${username} has joined`));
+
+    // socket.emit(), io.emit(), socket.broadcast.emit()
+    // sending message to a room
+    // io.to.emit(), socket.broadcast.to.emit()
+  });
 
   socket.on('sendMessage', (message, callback) => {
     const filter = new Filter();
 
     if (filter.isProfane(message)) return callback('Profanity is not allowed');
 
-    io.emit('message', generateMsg(message));
+    io.to('Android').emit('message', generateMsg(message));
     callback();
   });
 
