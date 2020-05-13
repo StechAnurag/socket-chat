@@ -4,12 +4,15 @@ const socket = io();
 const $messageForm = document.querySelector('#message-form');
 const $messageFormInput = $messageForm.querySelector('input');
 const $messageFormBtn = $messageForm.querySelector('button');
-const $sendLocationBtn = document.querySelector('#loc-btn');
+const $sendLocationBtn = document.querySelector('#send-location');
 const $messages = document.querySelector('#messages');
 
 // Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
-const locMsgTemplate = document.querySelector('#loc-msg-template').innerHTML;
+const locMsgTemplate = document.querySelector('#location-message-template').innerHTML;
+
+// Options
+const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true });
 
 socket.on('message', message => {
   const html = Mustache.render(messageTemplate, {
@@ -66,3 +69,6 @@ $sendLocationBtn.addEventListener('click', e => {
     );
   });
 });
+
+// Emitting, Join a chat room - event
+socket.emit('join', { username, room });
