@@ -1,16 +1,6 @@
-const generateMsg = text => {
-  return {
-    text,
-    createdAt: Date.now()
-  };
-};
+const generateMsg = (username, text) => ({ username, text, createdAt: Date.now() });
 
-const generateLocMsg = url => {
-  return {
-    url,
-    createdAt: Date.now()
-  };
-};
+const generateLocMsg = (username, url) => ({ username, url, createdAt: Date.now() });
 
 exports.generateMsg = generateMsg;
 exports.generateLocMsg = generateLocMsg;

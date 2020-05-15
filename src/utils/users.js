@@ -3,7 +3,6 @@ const users = [];
 const addUser = ({ id, username, room }) => {
   // validate the data
   if (!username || !room) return { error: 'Username and room are required' };
-
   // clean the data
   username = username.trim().toLowerCase();
   room = room.trim().toLowerCase();
@@ -15,7 +14,7 @@ const addUser = ({ id, username, room }) => {
   // Store User
   const user = { id, username, room };
   users.push(user);
-  return user;
+  return { user };
 };
 
 const removeUser = id => {
@@ -28,6 +27,6 @@ const removeUser = id => {
 
 const getUser = id => users.find(user => user.id === id);
 
-const getUsersInRoom = room => users.filter(user => user.room === room);
+const getUsersInRoom = room => users.filter(user => user.room === room.toLowerCase());
 
 module.exports = { addUser, getUser, getUsersInRoom, removeUser };
