@@ -3,10 +3,19 @@
   <head>
     <title>Chat App</title>
     <link rel="stylesheet" href="/css/styles.min.css" />
+    <style type="text/css">
+      .dot {
+        height: 12px;
+        width: 12px;
+        background-color: lawngreen;
+        border-radius: 50%;
+        display: inline-block;
+      }
+    </style>
   </head>
   <body>
     <div class="chat">
-      <div class="chat__sidebar"></div>
+      <div id="sidebar" class="chat__sidebar"></div>
       <div class="chat__main">
         <div id="messages" class="chat__messages"></div>
 
@@ -37,6 +46,18 @@
               <span class="message__meta">{{createdAt}}</span>
           </p>
           <p><a href="{{url}}" target="_blank">My current location</a></p>
+      </div>
+    </script>
+
+    <script id="sidebar-template" type="text/html">
+      <div class="message">
+         <h2 class="room-title">Room: {{room}}</h2>
+         <h3 class="list-title">Users</h3>
+         <ul class="users">
+           {{#users}}
+            <li><span class="dot"></span> {{username}}</li>
+            {{/users}}
+         </ul>
       </div>
     </script>
 
